@@ -13,7 +13,7 @@ import {
     Select
 } from './../styles'
 
-export const ModalContent = ({ toggleModal }) => {
+export const ModalContent = ({ toggleModal, title }) => {
 
     return (
         <ModalContainer>
