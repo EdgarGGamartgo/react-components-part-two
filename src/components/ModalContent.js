@@ -9,10 +9,12 @@ import {
     OtherInput,
     SubmitButton,
     ResetButton,
-    Input
+    Input,
+    Select
 } from './../styles'
 
 export const ModalContent = ({ toggleModal }) => {
+
     return (
         <ModalContainer>
         <ModalBodyContent>
@@ -30,7 +32,7 @@ export const ModalContent = ({ toggleModal }) => {
                     <Paragraph>RELEASE DATE</Paragraph>
             </ThemeProvider>
             <ThemeProvider theme={OtherInput}>
-                    <Input placeholder="Select Date"/>
+                    <Input type="date" placeholder="Select Date"/>
             </ThemeProvider>
             <ThemeProvider theme={ModalInputTitle}>
                     <Paragraph>MOVIE URL</Paragraph>
@@ -42,7 +44,12 @@ export const ModalContent = ({ toggleModal }) => {
                     <Paragraph>GENRE</Paragraph>
             </ThemeProvider>
             <ThemeProvider theme={OtherInput}>
-                    <Input placeholder="Genre here"/>
+                    <Select>
+                        <option>Genre here</option>
+                        <option>Action and Adventure</option>
+                        <option>Oscar Winning Movie</option>
+                        <option>Drama, Biography, Music</option>
+                    </Select>
             </ThemeProvider>
             <ThemeProvider theme={ModalInputTitle}>
                     <Paragraph>OVERVIEW</Paragraph>
