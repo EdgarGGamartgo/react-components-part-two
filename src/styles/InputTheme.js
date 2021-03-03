@@ -22,6 +22,6 @@ export const OtherInput = {
     paddingLeft: '1%',
     marginLeft: '6%',
     height: '5vh' ,
-    width: '60%',
+    width: '90%',
     backgroundColor: '#232323'
 };

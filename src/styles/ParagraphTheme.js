@@ -21,3 +21,9 @@ export const ParagraphTitle = {
     marginLeft: '6%',
     marginTop: '50px'
 };
+
+export const ModalInputTitle = {
+  color: '#F65261',
+  marginLeft: '6%',
+  marginTop: '50px'
+};

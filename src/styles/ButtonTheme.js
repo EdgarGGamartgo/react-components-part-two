@@ -45,3 +45,4 @@ ButtonSearch.defaultProps = {
     color: "#FFFFFF"
   }
 }
+
