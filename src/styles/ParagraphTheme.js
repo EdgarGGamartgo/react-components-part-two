@@ -27,3 +27,9 @@ export const ModalInputTitle = {
   marginLeft: '6%',
   marginTop: '50px'
 };
+
+export const ModalDeleteMsg = {
+  color: '#FFFFFF',
+  marginLeft: '6%',
+  marginTop: '50px'
+};

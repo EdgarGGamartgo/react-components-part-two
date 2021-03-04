@@ -10,13 +10,23 @@ import {
 } from '../styles'
 import PropTypes from 'prop-types';
 import { DotsVerticalRounded } from '@styled-icons/boxicons-regular'
+import { Modal, ModalContent } from './../components';
 
-const MovieCard = ({ img, title, genre, releaseDate, imgAlt }) => {
+const MovieCard = ({ img, title, genre, releaseDate, imgAlt, url, movieId, overview, runtime }) => {
 
+    const [showModal, setShowModal] = useState(false)
     const [showIcon, setShowIcon] = useState(false)
     const [displayToolTip, setDisplayToolTip] = useState(false)
-
-
+    const [modalType, setModalType] = useState('EDIT')
+    const [modalData, setModalData] = useState({
+        title,
+        url,
+        releaseDate,
+        movieId,
+        overview,
+        runtime,
+        genre,
+    })
     const showToolTip = () => {
         setDisplayToolTip(true)
     }
@@ -25,28 +35,62 @@ const MovieCard = ({ img, title, genre, releaseDate, imgAlt }) => {
         setDisplayToolTip(false)
     }
 
+    const openEditModal = () => {
+        setDisplayToolTip(false)
+        setModalType('EDIT')
+        setShowModal(true)
+    }
+
+    const openDeleteModal = () => {
+        setDisplayToolTip(false)
+        setModalType('DELETE')
+        setShowModal(true)
+    }
+
+    const handleInput = (e) => {
+        setModalData(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+        console.log(modalData)
+        console.log(new Date(2000,4,3).toISOString().split('T')[0])
+
+    } 
+
     return (
         <Card onMouseOver={() => setShowIcon(true)} onMouseLeave={() => setShowIcon(false)}>
-            <CardImg src={img} alt={imgAlt}/>
+            <CardImg src={img} alt={imgAlt} />
             {
                 showIcon
-                ? <CardIconContainer><DotsVerticalRounded onClick={showToolTip} color='#232323' size="50"/></CardIconContainer>
-                : null 
+                    ? <CardIconContainer><DotsVerticalRounded onClick={showToolTip} color='#232323' size="50" /></CardIconContainer>
+                    : null
             }
             {
                 displayToolTip
-                ? <CardTooltipContainer onClick={closeToolTip}>
-                    <span style={{ paddingLeft: '100px',  }} >&times;</span>
-                    <CardTooltipItem>EDIT</CardTooltipItem>
-                    <CardTooltipItem>EDIT</CardTooltipItem>
+                    ? <CardTooltipContainer>
+                        <span onClick={closeToolTip} style={{ paddingLeft: '100px', }} >&times;</span>
+                        <CardTooltipItem onClick={openEditModal}>EDIT</CardTooltipItem>
+                        <CardTooltipItem onClick={openDeleteModal}>DELETE</CardTooltipItem>
 
-                </CardTooltipContainer>
-                : null 
+                    </CardTooltipContainer>
+                    : null
             }
             <CardText>
                 <h3>{title}<ReleaseDate>{releaseDate}</ReleaseDate></h3>
                 <p>{genre}</p>
             </CardText>
+            {
+                showModal ? (
+                    <Modal>
+                        <ModalContent
+                            modalData={modalData}
+                            handleInput={handleInput}
+                            modalType={modalType}
+                            toggleModal={() => setShowModal(!showModal)}
+                        />
+                    </Modal>
+                ) : null
+            }
         </Card>
     )
 }
@@ -57,6 +101,7 @@ MovieCard.propTypes = {
     genre: PropTypes.string.isRequired,
     releaseDate: PropTypes.string.isRequired,
     imgAlt: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
 }
 
 MovieCard.defaultProps = {
@@ -65,7 +110,8 @@ MovieCard.defaultProps = {
     genre: 'NO GENRE',
     releaseDate: '0',
     imgAlt: 'NO IMAGE',
+    url: 'NO URL'
 };
 
-export  { MovieCard }
+export { MovieCard }
 

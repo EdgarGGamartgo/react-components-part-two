@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import { ThemeProvider } from 'styled-components'
 import { 
     ParagraphTitle,
@@ -10,33 +10,35 @@ import {
 import PropTypes from 'prop-types';
 import { Modal, ModalContent } from './../components';
 
-class Header extends Component  {
-    constructor(props) {
-        super(props)
-    
-        this.state = {
-            showModal: false
-        }
-    }
+const Header = ({ className }) =>  {
 
-    toggleModal = () => {
-        this.setState({
-           showModal: ! this.state.showModal
-        })
+    const [showModal, setShowModal] = useState(false)
+    const [modalData, setModalData] = useState({
+        title: '',
+        url: '',
+        releaseDate: '',
+        movieId: '',
+        overview: '',
+        runtime: '',
+        genre: '',
+    })
+
+    const toggleModal = () => {
+        setShowModal(!showModal)
      };
 
-    addMovie = () => {
-        console.log('Add another movie')
+    const handleInput = (e) => {
+        console.log(e.target)
+        setModalData(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
     }
 
-    render() {
-
-        const { showModal } = this.state;
-
         return (
-            <div className={this.props.className}>
+            <div className={className}>
                     <Paragraph>netflixroulette</Paragraph>
-                    <Button onClick={this.toggleModal}>+ ADD MOVIE</Button>
+                    <Button onClick={toggleModal}>+ ADD MOVIE</Button>
                     <ThemeProvider theme={ParagraphTitle}>
                         <Paragraph>FIND YOUR MOVIE</Paragraph>
                     </ThemeProvider>
@@ -46,14 +48,16 @@ class Header extends Component  {
                         showModal ? (
                             <Modal>
                                 <ModalContent
-                                    toggleModal={this.toggleModal}
+                                    modalData={modalData}
+                                    handleInput={handleInput}
+                                    modalType="ADD"
+                                    toggleModal={toggleModal}
                                 />
                             </Modal>
                         ) : null
                     }
             </div>
         )
-    }
     
 }
 

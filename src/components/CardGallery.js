@@ -10,6 +10,9 @@ export const CardGallery = () => {
                     MovieGallery.map(movie => {
                         return (
                             <MovieCard
+                            url={movie.url}
+                            overview={movie.overview}
+                            movieId={movie.id}
                             key={movie.id}
                             id={movie.id}
                             img={movie.img}
@@ -17,6 +20,7 @@ export const CardGallery = () => {
                             genre={movie.genre}
                             releaseDate={movie.releaseDate}
                             imgAlt={movie.imgAlt}
+                            runtime={movie.runtime}
                             />
                         )
                     })
